@@ -15,10 +15,10 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache py-pip=9.0.0-r1
-            pip install docker-compose==1.17.1
+              apk add --no-cache py-pip=9.0.0-r1
+              pip install docker-compose==1.17.1
       - run:
           name: Run tests
           command:
-            docker-compose up -d
-            docker-compose exec -it cidemo_php vendor/bin/simple-phpunit
+              docker-compose up -d
+              docker-compose exec -it cidemo_php vendor/bin/simple-phpunit
