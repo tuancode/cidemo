@@ -19,6 +19,6 @@ jobs:
               pip install docker-compose==1.17.1
       - run:
           name: Run tests
-          command:
+          command: |
               docker-compose up -d
               docker-compose exec -it cidemo_php vendor/bin/simple-phpunit
