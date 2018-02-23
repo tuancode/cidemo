@@ -16,7 +16,5 @@ before_install:
   - docker-compose -v
 
 script:
-  - docker-compose up -d
-  - docker-compose ps
-  - docker-compose exec --it cidemo_php composer install
-  - docker-compose exec --it cidemo_php vendor/bin/simple-phpunit
+  - docker-compose run --rm php composer install
+  - docker-compose run --rm php vendor/bin/simple-phpunit
