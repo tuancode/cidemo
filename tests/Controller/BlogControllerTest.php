@@ -29,7 +29,7 @@ class BlogControllerTest extends WebTestCase
     public function testIndex()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/en/blog/');
+        $crawler = $client->request('GET', '/en/blogs/');
 
         $this->assertCount(
             Post::NUM_ITEMS,
@@ -63,10 +63,13 @@ class BlogControllerTest extends WebTestCase
      */
     public function testNewComment()
     {
-        $client = static::createClient([], [
-            'PHP_AUTH_USER' => 'john_user',
-            'PHP_AUTH_PW' => 'kitten',
-        ]);
+        $client = static::createClient(
+            [],
+            [
+                'PHP_AUTH_USER' => 'john_user',
+                'PHP_AUTH_PW' => 'kitten',
+            ]
+        );
         $client->followRedirects();
 
         // Find first blog post
@@ -75,9 +78,11 @@ class BlogControllerTest extends WebTestCase
 
         $crawler = $client->click($postLink);
 
-        $form = $crawler->selectButton('Publish comment')->form([
-            'comment[content]' => 'Hi, Symfony!',
-        ]);
+        $form = $crawler->selectButton('Publish comment')->form(
+            [
+                'comment[content]' => 'Hi, Symfony!',
+            ]
+        );
         $crawler = $client->submit($form);
 
         $newComment = $crawler->filter('.post-comment')->first()->filter('div > p')->text();
