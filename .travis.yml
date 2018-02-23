@@ -1,3 +1,5 @@
+language: php
+os: linux
 sudo: required
 
 env:
@@ -15,5 +17,6 @@ before_install:
 
 script:
   - docker-compose up -d
+  - docker-compose ps
   - docker-compose exec --it cidemo_php composer install
   - docker-compose exec --it cidemo_php vendor/bin/simple-phpunit
