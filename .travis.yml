@@ -15,3 +15,11 @@ before_install:
 script:
   - docker-compose run --rm php composer install
   - docker-compose run --rm php vendor/bin/simple-phpunit
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: 8f4c541e-5a41-46c8-bb9c-52538f7569a3
+  app: at-cidemo
+  on:
+    repo: tuancode/cidemo
