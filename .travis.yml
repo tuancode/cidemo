@@ -1,10 +1,15 @@
+# Sudo for installing stuff and using docker.
 sudo: true
 
+# Docker is used for build project container
+services:
+  - docker
+
+# To pin dependencies to these versions
 env:
   DOCKER_COMPOSE_VERSION: 1.19.0
 
-services: docker
-
+# Installing pinned versions of dependencies
 before_install:
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
@@ -12,14 +17,22 @@ before_install:
   - docker -v
   - docker-compose -v
 
+# Building and testing script
 script:
   - docker-compose run --rm php composer install
   - docker-compose run --rm php vendor/bin/simple-phpunit
 
+# Specifying branch to build
+branches:
+  only:
+      - master
+
+# Deployment configuration
 deploy:
   provider: heroku
   api_key:
     secure: 8f4c541e-5a41-46c8-bb9c-52538f7569a3
-  app: at-cidemo
+  app:
+    master: cidemo-production
   on:
     repo: tuancode/cidemo
