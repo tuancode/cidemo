@@ -30,6 +30,7 @@ branches:
 # Deployment configuration
 deploy:
   provider: heroku
+  skip_cleanup: true
   api_key:
     secure: 8f4c541e-5a41-46c8-bb9c-52538f7569a3
   app:
